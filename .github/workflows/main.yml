@@ -6,15 +6,15 @@ on:
     pull_request:
         branches:
             - main
-    # Run on a schedule (UTC). Example below runs every day at 10:10 UTC.
-    schedule:
-        - cron: '10 10 * * *'
-    # Allow manual runs from the Actions UI for testing
-    workflow_dispatch:
 jobs:
     build:
         runs-on: ubuntu-latest
         name: Run PHP CI workflow
         steps:
             - uses: actions/checkout@v3
-            
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '8.1'
+            - name: scheduling push
+              run: cron "10 10 * * *"
