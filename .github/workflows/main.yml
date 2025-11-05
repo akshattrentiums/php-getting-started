@@ -30,4 +30,4 @@ jobs:
         run: composer install
 
       - name: Run PHP built-in server
-        run: php -S localhost:8000 -t .
+        run: php -S localhost:8000 -t 
