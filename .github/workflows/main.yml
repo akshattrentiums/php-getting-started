@@ -1,18 +1,33 @@
 name: php ci workflow
+
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
-    schedule:
-        - cron: "10 10 * * *"
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "10 10 * * *"
+
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        name: Run PHP CI workflow
-        steps: 
-            - uses: actions/checkout@v2
-            
-            
+  build:
+    runs-on: ubuntu-latest
+    name: Run PHP CI workflow
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PHP
+        run: |
+          sudo apt update
+          sudo apt install php-cli php-mbstring php-xml composer -y
+
+      - name: Check PHP version
+        run: php -v
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run PHP built-in server
+        run: php -S localhost:8000 -t .
